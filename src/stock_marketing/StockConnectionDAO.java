@@ -1,0 +1,58 @@
+
+package stock_marketing;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+public class StockConnectionDAO  
+{
+  static Connection con = null;
+  protected PreparedStatement ps = null;
+  protected ResultSet rs = null;
+    public static Connection getConnection() throws ClassNotFoundException
+  {
+     final String  DBURL  = "jdbc:mysql://localhost:3306/stockmarketing";
+     final String DBUSERNAME = "stockmarketer";
+     final String  DBPASSWORD = "stockmarketer";
+     try 
+	     {
+	        con = DriverManager.getConnection(DBURL, DBUSERNAME, DBPASSWORD);
+	        System.out.println("Connected Database Successfully");
+	     }
+     catch (SQLException e) 
+	     {
+	        System.out.println(e);
+	        e.printStackTrace();
+	     }
+     return con;
+  } 
+  public void disconnect()
+  {
+     try {
+        if(rs != null)
+        {
+           rs.close();
+        }
+        if(ps != null)
+        {
+           ps.close();
+        }
+        if(con != null)
+        {
+           con.close();
+        }
+       
+     }
+       catch (Exception e) 
+     {
+        // TODO: handle exception
+     }
+    
+  }
+ }
+
+
+
+
